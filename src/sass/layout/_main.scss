@@ -7,7 +7,7 @@ main {
     #contactFormName {
         grid-column: 1/2;
         grid-row: 1;
-        margin-top: 8rem;
+        margin-top: 4rem;
 
         @include respondTo(md) {
             margin-top: 2rem;
@@ -133,7 +133,7 @@ main {
             .forms {
                 display: flex;
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 2.5rem;
 
                 .formItem {
                     position: relative;
@@ -148,26 +148,6 @@ main {
                             margin-bottom: 0.5rem;
                         }
                     }
-
-                    .formInput {
-                        border: solid 2px #333 !important;
-                        
-                    }
-                    
-                    input[type="text"], input[type="password"], input[type="email"] {
-                        border: none;
-                        outline: none;
-                        background: rgba(255, 255, 255, 0.3);
-                        padding: 1rem 1.5rem;
-                        padding-left: calc(1rem * 3.5);
-                        border-radius: 100px;
-                        width: 100%;
-                        transition: background 0.5s;
-        
-                        &:focus {
-                            background: white;
-                        }
-                    } 
         
                     .inputContainers {
                         position: relative;
@@ -188,42 +168,49 @@ main {
                             font-size: 1.5rem;
                             opacity: 0.5;
                         }
-                        
-                        .hideIcon {
-                            display: none;
-                            opacity: 0.5;
-                            position: absolute;
-                            top: 50%;
-                            transform: translateY(-50%);
-                            right: 1rem;
-                            font-size: 1rem;
-                            padding: 0.5rem;
-                            
-                            @include respondTo(md) {
-                                cursor: pointer;
-                            }
+
+                        #textareaItem {
+                            top: 2.5rem;
+                        }
+
+                        .formInput {
+                            border: solid 2px #333 !important;
                         }
                         
-                        .showIcon {
-                            position: absolute;
-                            top: 50%;
-                            right: 1rem;
-                            transform: translateY(-50%);
-                            padding: 0.5rem;
-                            opacity: 0.5;
-                            font-size: 1rem;
-    
-                            @include respondTo(md) {
-                                cursor: pointer;
+                        input[type="text"], input[type="email"], textarea {
+                            border: none;
+                            outline: none;
+                            background: rgba(255, 255, 255, 0.3);
+                            padding: 1rem 1.5rem;
+                            padding-left: calc(1rem * 3.5);
+                            border-radius: 1rem;
+                            width: 100%;
+                            transition: background 0.5s;
+            
+                            &:focus {
+                                background: white;
                             }
                         }
-    
-                        .validation--pw {
-                            position: absolute;
-                            top: 50%;
-                            transform: translateY(-50%);
-                            padding: 0.5rem;
-                            right: 2.5rem !important;
+
+                        #messageInput {
+                            height: 100px;
+                            border-radius: 1rem;
+                            padding-top: 2.5rem;
+                            resize: none;
+                            scrollbar-width: thin;  /* Pour Firefox */
+                            scrollbar-color: #333 #eee;
+                        }
+
+                        #message::-webkit-scrollbar {
+                            width: 8px;
+                        }
+
+                        #message::-webkit-scrollbar-track {
+                            background-color: #eee;
+                        }
+
+                        #message::-webkit-scrollbar-thumb {
+                            background-color: #333;
                         }
                     }
 
@@ -239,9 +226,19 @@ main {
                     }
                     
                     #emailError, #nameError, #messageError {
+                        position: absolute;
+                        bottom: -1rem;
+                        left: 1rem;
                         font-size: 0.75rem;
-                        margin-left: 2rem;
                         color: red;
+                    }
+
+                    #messageError {
+                        bottom: -2rem;
+
+                        @include respondTo(md) {
+                            bottom: -1rem;
+                        }
                     }
                 }
 

@@ -101,8 +101,8 @@
                     <div class="formItem">
                         <label for="message"></label>
                         <div class="inputContainers">
-                            <span class="itemIcon material-symbols-outlined">comment</span>
-                            <input type="text" name="message" id="messageInput" aria-describedby="messageError messageValidation" class="formInput messageInput" placeholder="Your message" onblur="validateMessage(this)" required>
+                            <span id="textareaItem" class="itemIcon material-symbols-outlined">comment</span>
+                            <textarea name="message" id="messageInput" aria-describedby="messageError messageValidation" class="formInput messageInput" placeholder="Your message" onblur="validateMessage(this)" required></textarea>
                         </div>
                         <div id="messageValidation" aria-live="polite"></div>
                         <div id="messageError" aria-live="polite"></div>

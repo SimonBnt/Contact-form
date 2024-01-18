@@ -1,16 +1,26 @@
 footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    text-align: center;
-    font-size: 2rem;
-    color: black;
-    margin: 12rem 0 1rem 0;
-    
-    p {
-        border: solid 2px #333;
+    background-color: #333;
+    position: fixed;
+    bottom: 0;
+    padding: 1rem 0;
+    border-top: solid #ff7b00 2px;
+
+    #myLink {
+        margin-bottom: 1rem;
         padding: 1rem;
-        border-radius: 0.5rem;
+        text-align: center;
+         color: #ffa149;
+
+
+        @include respondTo(md) {
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ff7b00;
+        }
     }
 }

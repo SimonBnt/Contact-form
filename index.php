@@ -36,9 +36,6 @@
             </div>
             <div id="burgerMenuContentContainer">
                 <div id="closeBurgerMenu" title="Cliquez pour fermer">x</div>
-                <div id="myLink">
-                    <p>Designed and developed by <a href="https://simonbenet.com/index.html" title="Link to my website" rel="noopener noreferrer" target="_blank" ><strong>Simon Bénet</strong></a></p>
-                </div>
                 <div id="contactIconsContainer">
                     <!-- <a href="" class="externLink" rel="noopener noreferrer" target="_blank"><img class="externLinkIcons" title="Link to my Facebook profile" src="/assets/img/svg/facebook.svg" alt="Facebook icon"></a> -->
                     <a href="https://www.linkedin.com/in/simon-b%C3%A9net/" class="externLink" title="link to my Linkedin profile" rel="noopener noreferrer" target="_blank"><img class="externLinkIcons" src="https://cdn-icons-png.flaticon.com/128/3128/3128219.png" alt="Linkedin icon"></a>
@@ -115,5 +112,10 @@
             </div>
         </div>
     </main>
+    <footer>
+        <div id="myLink">
+            <p>Designed and developed by <a href="https://simonbenet.com/index.html" title="Link to my website" rel="noopener noreferrer" target="_blank" ><strong>Simon Bénet</strong></a></p>
+        </div>
+    </footer>
 </body>
 </html>

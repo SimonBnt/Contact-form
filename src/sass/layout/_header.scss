@@ -86,24 +86,6 @@ header {
                 height: inherit;
                 gap: 0 2rem;
             }    
-
-            #myLink {
-                margin-bottom: 1rem;
-                padding: 1rem;
-                text-align: center;
-                 color: #ffa149;
-
-
-                @include respondTo(md) {
-                    margin-bottom: 0;
-                    padding: 0;
-                }
-
-                a {
-                    text-decoration: none;
-                    color: #ff7b00;
-                }
-            }
     
             #closeBurgerMenu {
                 color: #ff7b00;

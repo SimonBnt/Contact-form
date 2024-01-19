@@ -185,6 +185,7 @@ main {
                             padding-left: calc(1rem * 3.5);
                             border-radius: 1rem;
                             width: 100%;
+                            font-family: 'Poppins', sans-serif;
                             transition: background 0.5s;
             
                             &:focus {
@@ -256,11 +257,14 @@ main {
                         cursor: pointer;
                     }
                 }
-            }
 
-            .formFooter {
-                margin-top: 1.5rem;
-                font-size: calc(1rem * 0.8);
+                .success {
+                    color: mediumseagreen;
+                }
+
+                .error {
+                    color: indianred;
+                }
             }
         }
     }

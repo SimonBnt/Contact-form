@@ -83,7 +83,7 @@ contactForm.addEventListener("submit", (e) => {
         e.preventDefault()
     } else {
         displayMessage(contactErrorMessage, "Your form has been submitted successfully.", "mediumseagreen")
-        // contactForm.submit()
-        // resetForm(contactForm)
+        contactForm.submit()
+        resetForm(contactForm)
     }
 })

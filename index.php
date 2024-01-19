@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,12 +41,9 @@
             <div id="burgerMenuContentContainer">
                 <div id="closeBurgerMenu" title="Cliquez pour fermer">x</div>
                 <div id="contactIconsContainer">
-                    <!-- <a href="" class="externLink" rel="noopener noreferrer" target="_blank"><img class="externLinkIcons" title="Link to my Facebook profile" src="/assets/img/svg/facebook.svg" alt="Facebook icon"></a> -->
                     <a href="https://www.linkedin.com/in/simon-b%C3%A9net/" class="externLink" title="link to my Linkedin profile" rel="noopener noreferrer" target="_blank"><img class="externLinkIcons" src="https://cdn-icons-png.flaticon.com/128/3128/3128219.png" alt="Linkedin icon"></a>
                     <a href="https://www.fiverr.com/simonbenet" class="externLink" title="Lien vers mon profil Fiverr" rel="noopener noreferrer" target="_blank"><img class="externLinkIcons" src="https://cdn-icons-png.flaticon.com/128/732/732025.png" alt="Logo fiverr au format svg"></a>
-                    <!-- <a href="" class="externLink" title="link to my Instagram profile" rel="noopener noreferrer" target="_blank"><img class="externLinkIcons" src="/assets/img/svg/instagram.svg" alt="Instagram icon"></a> -->
                     <a href="https://github.com/SimonBnt" class="externLink" title="Link to my Github profile" rel="noopener noreferrer" target="_blank"><img class="externLinkIcons" src="https://cdn-icons-png.flaticon.com/128/2111/2111432.png" alt="Github icon"></a>
-                    <!-- <a href="" class="externLink" title="Link to my Codepen profile" rel="noopener noreferrer" target="_blank"><img class="externLinkIcons" src="/assets/img/svg/codepen-black.svg" alt="Codepen icon"></a> -->
                     <a href="https://simonbenet.com" class="externLink"  title="Link to my personal website" rel="noopener noreferrer" target="_blank"><img class="externLinkIcons" src="https://cdn-icons-png.flaticon.com/128/3138/3138305.png" alt="Website icon"></a>
                 </div>
             </div>
@@ -50,12 +51,11 @@
     </header>
 
     <?php 
-        session_start();
-        
         require ("assets/inc/function.php");
-        require("assets/inc/mailer.php");
+        require ("assets/inc/mailer.php");
 
         $name = $email = $message = "";
+        $response = "";
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST) && !empty($_POST)) {
             $name = testInput($_POST["name"]);
@@ -90,8 +90,11 @@
                 $response = "All fields are required";
                 exit;
             } else {
-                echo $_SESSION["verifiedName"], $_SESSION["verifiedEmail"], $_SESSION["verifiedMessage"];
                 $response = sendMail($_SESSION["verifiedName"], $_SESSION["verifiedEmail"], $_SESSION["verifiedMessage"]);
+
+                if ($response == "success") {
+                    header("Location: index.php");
+                }
             }
         }
     ?>
@@ -110,7 +113,6 @@
                     <p class="formTxt">Please fill this form before submitting</p>
                 </div>
                 <form action="" method="POST" class="forms" id="contactForm">
-                <!-- <form action="./assets/inc/contactForm_process.php" method="POST" class="forms" id="contactForm"> -->
                     <div class="formItem">
                         <label for="name"></label>
                         <div class="inputContainers">
@@ -143,28 +145,11 @@
                         <div id="contactErrorMessage"></div>
                     </div>
                     <?php
-                        if(@$response == "success") {
-                            ?>
-                                <p>Email send successfully</p>
-                            <?php
+                        if ($response == "success") {
+                            echo '<p class="success">Email send successfully !</p>';
                         } else {
-                            ?>
-                                <p><?php echo @$response; ?></p>
-                            <?php
+                            echo '<p class="error">' . htmlspecialchars($response) . '</p>';
                         }
-                        // if (isset($_SESSION["errorMessage"]) && !empty($_SESSION["errorMessage"])) {
-        //     echo "<div id='errorMessage' class='sessionMessage'>";
-        //     echo $_SESSION['errorMessage'];
-        //     echo "</div>";
-        //     unset($_SESSION["errorMessage"]);
-        // }
-
-        // if (isset($_SESSION["validationMessage"]) && !empty($_SESSION["validationMessage"])) {
-        //     echo "<div id='validationMessage' class='sessionMessage'>";
-        //     echo $_SESSION['validationMessage'];
-        //     echo "</div>";
-        //     unset($_SESSION["validationMessage"]);
-        // }
                     ?>
                 </form>
             </div>

@@ -1,68 +1,79 @@
 <?php
-    require_once "../../vendor/autoload.php";
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    // require ("contactForm_process.php");
+    require ("config.php");
+    require ("vendor/autoload.php");
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
-    if (isset($_SESSION["name"])) {
-        $name = $_SESSION["name"];
-        echo '<pre>';
-        echo "name = " . $name . " ";
-        echo '</pre>';
-    } else {
-        exit;
-    }
-
-    if (isset($_SESSION["email"])) {
-        $email = $_SESSION["email"];
-        echo '<pre>';
-        echo "email = " . $email . " ";
-        echo '</pre>';
-    } else {
-        exit;
-    }
-
-    if (isset($_SESSION["message"])) {
-        $message = $_SESSION["message"];
-        echo '<pre>';
-        echo "message = " . $message . " ";
-        echo '</pre>';
-    } else {
-        exit;
-    }
-
-    $to = "adresse.test.mail.signature@gmail.com";
-    $subject = "New contact form submission";
+    // $to = "simon.be47@gmail.com";
     
-    try {
+    // $mail = new PHPMailer(true);
+
+    // try {
+    //     $mail->isSMTP();                                            
+    //     $mail->Host = "smtp.gmail.com";                     
+    //     $mail->SMTPAuth = true;                                   
+    //     // $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
+        
+    //     $mail->Username = "adresse.test.mail.signature@gmail.com";                     
+    //     $mail->Password = "Sucsds123456testmail";                               
+
+    //     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;           
+    //     $mail->Port = 587;           
+        
+    //     $mail->setFrom($email);
+    //     $mail->addAddress($to);
+        
+    //     $mail->isHTML(true);                                  
+    //     $mail->Subject = $subject;
+    //     $mail->Body = "<p>Name : {$name}</p><p>Email : {$email}</p><p>Message : {$message}</p>";
+    //     $mail->AltBody = $message;
+
+    //     $mail->send();
+
+    //     echo "email send";
+
+    //     $successMessage = "<p> style='color: green;'>Succes</p>";
+    //     echo $successMessage;
+    // } catch (Exception $error) {
+    //     $errorMessage = "<p style='color: red;'>Error</p>";
+    //     echo $errorMessage;
+    // }
+
+    function sendMail($name, $email, $message) {
         $mail = new PHPMailer(true);
+
+        $subject = "New contact form submission";
+
         $mail->isSMTP();                                            
-        // $mail->isHTML(true);                                  
         $mail->SMTPAuth = true;                                   
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
+        $mail->Host = mailHost;    
 
-        $mail->Host = "smtp.example.com";                     
+        $mail->Username = userName;                     
+        $mail->Password = password;      
+        
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;           
-        $mail->Port = 587;           
+        $mail->Port = 587;   
 
-        $mail->Username = "example@example.com";                     
-        $mail->Password = "";                               
+        $mail->setFrom($email, sendFromName);
+        $mail->addAddress($email);
+        $mail->addReplyTo(replyTo, replyToName);
 
-        $mail->setFrom($email);
-        $mail->addAddress($to);
-
+        $mail->isHTML(true);                                  
         $mail->Subject = $subject;
         $mail->Body = "<p>Name : {$name}</p><p>Email : {$email}</p><p>Message : {$message}</p>";
+        $mail->AltBody = $message;
 
-        $mail->send();
-
-        echo "email send";
-
-        $successMessage = "<p> style='color: green;'>Succes</p>";
-        echo $successMessage;
-    } catch (Exception $error) {
-        $errorMessage = "<p style='color: red;'>Error</p>";
-        echo $errorMessage;
+        if(!$mail->send()) {
+            return "Email not send, Please try again.";
+        } else {
+            return "Email succesfully send !";
+        }
     }
 ?>

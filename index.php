@@ -48,21 +48,54 @@
             </div>
         </div>
     </header>
-        <?php 
-            if (isset($_SESSION["errorMessage"]) && !empty($_SESSION["errorMessage"])) {
-                echo "<div id='errorMessage' class='sessionMessage'>";
-                echo $_SESSION['errorMessage'];
-                echo "</div>";
-                unset($_SESSION["errorMessage"]);
-            }
 
-            if (isset($_SESSION["validationMessage"]) && !empty($_SESSION["validationMessage"])) {
-                echo "<div id='validationMessage' class='sessionMessage'>";
-                echo $_SESSION['validationMessage'];
-                echo "</div>";
-                unset($_SESSION["validationMessage"]);
+    <?php 
+        session_start();
+        
+        require ("assets/inc/function.php");
+        require("assets/inc/mailer.php");
+
+        $name = $email = $message = "";
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST) && !empty($_POST)) {
+            $name = testInput($_POST["name"]);
+            $email = testInput($_POST["email"]);
+            $message = testInput($_POST["message"]);
+
+            if (empty($name)) {
+                exit;
+            } elseif (!preg_match("/^[a-zA-Z-']*$/", $name)) {
+                exit;
+            };
+            
+            if (empty($email)) {
+                exit;
+            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $email)){
+                exit;
+            };
+            
+            if (empty($message)) {
+                exit;
+            } elseif (!is_string($email) || !preg_match("/^([a-z0-9,?!;.: ]+)$/", $message) || strlen($message) > 255) {
+                exit;
+            };
+
+            $_SESSION["verifiedName"] = $name;
+            $_SESSION["verifiedEmail"] = $email;
+            $_SESSION["verifiedMessage"] = $message;
+        }
+
+        if (isset($_POST["submit"])) {
+            if (empty($_SESSION["verifiedName"]) ||empty($_SESSION["verifiedEmail"]) || empty($_SESSION["verifiedMessage"])) {
+                $response = "All fields are required";
+                exit;
+            } else {
+                echo $_SESSION["verifiedName"], $_SESSION["verifiedEmail"], $_SESSION["verifiedMessage"];
+                $response = sendMail($_SESSION["verifiedName"], $_SESSION["verifiedEmail"], $_SESSION["verifiedMessage"]);
             }
-        ?>
+        }
+    ?>
+
     <main>
                   <!-- CONTACT FORM -->
 
@@ -76,7 +109,8 @@
                     <h3 class="formTitle">Contact us</h3>
                     <p class="formTxt">Please fill this form before submitting</p>
                 </div>
-                <form action="./assets/inc/contactForm_process.php" method="POST" class="forms" id="contactForm">
+                <form action="" method="POST" class="forms" id="contactForm">
+                <!-- <form action="./assets/inc/contactForm_process.php" method="POST" class="forms" id="contactForm"> -->
                     <div class="formItem">
                         <label for="name"></label>
                         <div class="inputContainers">
@@ -108,6 +142,30 @@
                     <div class="errorMessagesContainers">
                         <div id="contactErrorMessage"></div>
                     </div>
+                    <?php
+                        if(@$response == "success") {
+                            ?>
+                                <p>Email send successfully</p>
+                            <?php
+                        } else {
+                            ?>
+                                <p><?php echo @$response; ?></p>
+                            <?php
+                        }
+                        // if (isset($_SESSION["errorMessage"]) && !empty($_SESSION["errorMessage"])) {
+        //     echo "<div id='errorMessage' class='sessionMessage'>";
+        //     echo $_SESSION['errorMessage'];
+        //     echo "</div>";
+        //     unset($_SESSION["errorMessage"]);
+        // }
+
+        // if (isset($_SESSION["validationMessage"]) && !empty($_SESSION["validationMessage"])) {
+        //     echo "<div id='validationMessage' class='sessionMessage'>";
+        //     echo $_SESSION['validationMessage'];
+        //     echo "</div>";
+        //     unset($_SESSION["validationMessage"]);
+        // }
+                    ?>
                 </form>
             </div>
         </div>
@@ -119,3 +177,4 @@
     </footer>
 </body>
 </html>
+

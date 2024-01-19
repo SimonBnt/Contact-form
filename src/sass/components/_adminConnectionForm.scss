@@ -1,0 +1,86 @@
+#adminConnectionPageMain {
+    height: 80dvh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+
+    h1 {
+        color: white;
+        margin-bottom: 2rem;
+
+        @include respondTo(md) {
+            font-size: 2rem;
+
+        }
+    }
+
+    #adminConnectionForm {
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 2rem 3rem 2rem 3rem;
+        position: relative;
+        max-width: 320px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        &::before {
+            display: none;
+            
+            @media (min-width: 360px) {
+                display: block;
+                content: "";
+                position: absolute;
+                background: rgba(255, 255, 255, .25);
+                inset: 0;
+                transform: rotate(-5deg);
+                z-index: -1;
+                border-radius: 1rem;
+            }
+        }
+    }
+
+    .labelsInputsContainers {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        label {
+            align-self: flex-start;
+            font-size: 1.25rem;
+        }
+        
+        .inputContainers {
+            display: flex;
+            align-self: flex-start;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 0 0.5rem;
+            border: solid #333 2px;
+            border-radius: 1rem;
+            background-color: #fff;
+
+            span {
+                margin-left: 0.5rem;
+            }
+            
+            input {
+                text-align: center;
+                border: none;
+                outline: none;
+                padding: 1rem 1.5rem;
+                border-radius: 1rem;
+                width: 100%;
+                font-size: 0.8rem;
+                transition: background 0.5s;
+                background-color: #fff;
+            }
+        }
+
+    }
+}

@@ -52,7 +52,35 @@
     <?php 
     ?>
 
-    <main>
+    <main id="adminConnectionPageMain">
+        <!-- ---- // ADMIN CONNECTION FORM // ---- -->
+
+        <h1>Admin Page Connection</h1>
+
+        <form action="" method="POST" id="adminConnectionForm">
+            <div class="labelsInputsContainers">
+                <label for="adminId">Admin ID</label>
+                <div class="inputContainers">
+                    <span class="material-symbols-outlined">person</span>
+                    <input type="text" name="adminId" aria-describedby="idError idValidation" placeholder="Enter your admin ID" required>
+                    <div class="validationErrorMessagesContainers">
+                        <p class="validationMessage"></p>
+                        <p class="errorMessage"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="labelsInputsContainers">
+                <label for="adminPassword">Password</label>
+                <div class="inputContainers">
+                    <span class="material-symbols-outlined">lock</span>
+                    <input type="text" name="adminPassword" aria-describedby="passwordError passwordValidation" placeholder="Enter your password" required>
+                    <div class="validationErrorMessagesContainers">
+                        <p class="validationMessage"></p>
+                        <p class="errorMessage"></p>
+                    </div>
+                </div>
+            </div>
+        </form>
     </main>
     <footer>
         <div id="myLink">
